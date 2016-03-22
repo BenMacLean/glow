@@ -39,9 +39,18 @@ ai = {
 ball = {
   x:null,
   y:null,
+  vel:null,
   side: 20,
+  speed: 5,
 
-  update: function() {},
+  update: function() {
+    this.x += this.vel.x;
+    this.y += this.vel.y;
+
+    if (0 > this.y || this. y+ this.side > HEIGHT) {
+      this.vel.y *= -1;
+    }
+  },
   draw: function() {
     console.log("drawFunction Loading");
     ctx.fillRect(this.x, this.y, this.side, this.side)
@@ -85,6 +94,11 @@ function init() {
 
   ball.x = (WIDTH - ball.side)/2;
   ball.y = (HEIGHT - ball.side)/2;
+
+  ball.vel = {
+    x:0,
+    y: ball.speed
+  }
 }
 
 function update() {
