@@ -48,6 +48,8 @@ ball = {
     this.y += this.vel.y;
 
     if (0 > this.y || this. y+ this.side > HEIGHT) {
+      var offset = this.vel.y < 0 ? 0 - this.y : HEIGHT - (this.y+this.side);
+      this.y += 2 * offset;
       this.vel.y *= -1;
     }
   },
