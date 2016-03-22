@@ -29,7 +29,11 @@ ai = {
   width: 20,
   height: 100,
 
-  update: function() {},
+  update: function() {
+    var desty = ball.y - (this.height - ball.side)*0.5;
+    this.y += (desty - this.y) * 0.1;
+
+  },
   draw: function() {
     console.log("aiDrawFunction Loading");
     ctx.fillRect(this.x, this.y, this.width, this.height)
@@ -41,7 +45,7 @@ ball = {
   y:null,
   vel:null,
   side: 20,
-  speed: 5,
+  speed: 12,
 
   update: function() {
     this.x += this.vel.x;
@@ -51,6 +55,22 @@ ball = {
       var offset = this.vel.y < 0 ? 0 - this.y : HEIGHT - (this.y+this.side);
       this.y += 2 * offset;
       this.vel.y *= -1;
+    }
+
+    var AABBIntersect = function(ax, ay, aw, ah, bx, by, bw, bh) {
+      return ax < bx+bw && ay < by+bh && bx < ax+aw && by < ay+ah;
+    };
+
+    var pdle = this.vel.x < 0 ? player : ai;
+    if (AABBIntersect(pdle.x, pdle.y, pdle.width, pdle.height,
+      this.x, this.y, this.side, this.side)
+    ) {
+      this.x = pdle===player ? player.x + player.width : ai.x - this.side;
+      var n = (this.y+this.side - pdle.y)/(pdle.height+this.side);
+      var phi = 0.25*pi*(2*n - 1);//pi/4=45degrees
+      this.vel.x = (pdle===player ? 1 : -1)*this.speed*Math.cos(phi);
+      this.vel.y = this.speed*Math.sin(phi);
+
     }
   },
   draw: function() {
@@ -98,8 +118,8 @@ function init() {
   ball.y = (HEIGHT - ball.side)/2;
 
   ball.vel = {
-    x:0,
-    y: ball.speed
+    x: ball.speed,
+    y: 0
   }
 }
 
