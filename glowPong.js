@@ -1,7 +1,7 @@
 console.log("JS is loading");
 
 
-var WIDTH = 700, HEIGHT=600, pi=math.PI;
+var WIDTH = 700, HEIGHT=600, pi=Math.PI;
 var canvas, ctx, keystate;
 var player, ai, ball;
 
@@ -47,16 +47,17 @@ function main() {}
   ctx = canvas.getContext("2d")
   document.body.appendChild(canvas);
 
-  inti();
+  init();
 
   var loop = function(){
     update();
     draw();
 
-    window.reqestAnimationFrame(loop, canvas,)
+    window.requestAnimationFrame(loop, canvas)
   };
-  window.reqestAnimationFrame(loop, canvas,)
-}
+  window.requestAnimationFrame(loop, canvas);
+
+
 function init() {
   player.x = player.width;
   player.y = (HEIGHT - player.height)/2;
