@@ -68,8 +68,10 @@ ball = {
       this.x = pdle===player ? player.x + player.width : ai.x - this.side;
       var n = (this.y+this.side - pdle.y)/(pdle.height+this.side);
       var phi = 0.25*pi*(2*n - 1);//pi/4=45degrees
-      this.vel.x = (pdle===player ? 1 : -1)*this.speed*Math.cos(phi);
-      this.vel.y = this.speed*Math.sin(phi);
+
+      var smash = Math.abs(phi) > 0.2*pi ? 1.5 : 1;
+      this.vel.x = smash*(pdle===player ? 1 : -1)*this.speed*Math.cos(phi);
+      this.vel.y = smash*this.speed*Math.sin(phi);
 
     }
   },
