@@ -47,6 +47,18 @@ ball = {
   side: 20,
   speed: 12,
 
+  serve: function (side) {
+    var r = Math.random();
+    this.x = side===1 ? player.x : ai.x - this.side;
+    this.y = (HEIGHT - this.side)*r;
+
+    var phi = 0.1*pi*(1- 2*r);
+    this.vel = {
+      x: side*this.speed*Math.cos(phi),
+      y: this.speed*Math.sin(phi)
+    }
+  },
+
   update: function() {
     this.x += this.vel.x;
     this.y += this.vel.y;
@@ -74,6 +86,10 @@ ball = {
       this.vel.y = smash*this.speed*Math.sin(phi);
 
     }
+
+    if (0 > this.x+this.side || this.x > WIDTH){
+        this.serve(pdle===player ? 1 : -1);
+      }
   },
   draw: function() {
     console.log("drawFunction Loading");
@@ -116,13 +132,7 @@ function init() {
   ai.x = WIDTH - (player.width + ai.width);
   ai.y = (HEIGHT - ai.height)/2;
 
-  ball.x = (WIDTH - ball.side)/2;
-  ball.y = (HEIGHT - ball.side)/2;
-
-  ball.vel = {
-    x: ball.speed,
-    y: 0
-  }
+  ball.serve(1);
 }
 
 function update() {
