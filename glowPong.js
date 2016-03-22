@@ -76,7 +76,13 @@ function update() {
 }
 
 function draw() {
-  ball.draw()
-  player.draw()
-  ai.draw()
+  ctx.fillRect(0, 0, WIDTH, HEIGHT);
+  ctx.save();
+  ctx.fillStyle = "#fff";
+
+  ball.draw();
+  player.draw();
+  ai.draw();
+
+  ctx.restore();
 }
