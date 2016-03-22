@@ -1,4 +1,9 @@
-console.log("JS is loading");
+// console.log("JS is loading");
+//
+// ctx.strokeStyle = '28d1fa';
+// ctx.lineCap = 'round'
+// ctx.shadowBlue = 15
+// ctx.shadowColor = '28d1fa';
 
 
 var WIDTH = 700, HEIGHT=600, pi=Math.PI;
@@ -20,6 +25,7 @@ player = {
   },
   draw: function() {
     ctx.fillRect(this.x, this.y, this.width, this.height)
+    ctx.fillStyle = "#28d1fa";
   }
 };
 
@@ -37,6 +43,7 @@ ai = {
   draw: function() {
     console.log("aiDrawFunction Loading");
     ctx.fillRect(this.x, this.y, this.width, this.height)
+    ctx.lineCap = "round";
   }
 };
 
@@ -46,6 +53,7 @@ ball = {
   vel:null,
   side: 20,
   speed: 12,
+
 
   serve: function (side) {
     var r = Math.random();
@@ -146,7 +154,11 @@ function draw() {
   console.log("functionDrawFunction Loading");
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
   ctx.save();
-  ctx.fillStyle = "#fff";
+//coloring and styling of players
+  ctx.fillStyle = "#28d1fa";
+  ctx.shadowBlur = 15;
+  ctx.shadowColor = "#28d1fa";
+  ctx.lineCap="round";
 
   ball.draw();
   player.draw();
